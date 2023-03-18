@@ -8,7 +8,6 @@ import cn.zhxu.bs.SearchSql;
 import cn.zhxu.bs.SqlExecutor;
 import cn.zhxu.bs.SqlResult;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
-import org.apache.ibatis.builder.StaticSqlSource;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.mapping.ResultMap;
 import org.apache.ibatis.mapping.SqlCommandType;
@@ -39,14 +38,12 @@ public class MySqlExecutor implements SqlExecutor {
     protected static final Logger log = LoggerFactory.getLogger(MySqlExecutor.class);
 
     private SqlSessionFactory sqlSessionFactory;
-    private Configuration configuration;
     private SqlBuilderStatement SqlBuilderStatement;
 
-    public MySqlExecutor setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
+    public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
-        configuration = sqlSessionFactory.getConfiguration();
+        Configuration configuration = sqlSessionFactory.getConfiguration();
         this.SqlBuilderStatement = new SqlBuilderStatement(configuration);
-        return this;
     }
 
     /**
@@ -62,10 +59,6 @@ public class MySqlExecutor implements SqlExecutor {
      * @since v3.7.0
      */
     private SlowListener slowListener;
-
-
-    public MySqlExecutor() {
-    }
 
     public MySqlExecutor(SqlSessionFactory sqlSessionFactory) {
         setSqlSessionFactory(sqlSessionFactory);
@@ -135,12 +128,12 @@ public class MySqlExecutor implements SqlExecutor {
                 valueMap, searchSql.getBeanMeta());
         return new SqlResult.ResultSet() {
             @Override
-            public boolean next() throws SQLException {
+            public boolean next() {
                 return result.hasNext();
             }
 
             @Override
-            public Object get(String columnLabel) throws SQLException {
+            public Object get(String columnLabel) {
                 return result.map.get(columnLabel);
             }
 
@@ -167,7 +160,7 @@ public class MySqlExecutor implements SqlExecutor {
         boolean hasValue = result.hasNext();
         return new SqlResult.Result() {
             @Override
-            public Object get(String columnLabel) throws SQLException {
+            public Object get(String columnLabel) {
                 if (hasValue) {
                     return result.map.get(columnLabel);
                 }
@@ -181,7 +174,7 @@ public class MySqlExecutor implements SqlExecutor {
     }
 
     protected Result<Map<String, Object>> executeQuery(SqlSession sqlSession, String mpId, String sql, Map<String, Object> params,
-                                                       BeanMeta<?> beanMeta) throws SQLException {
+                                                       BeanMeta<?> beanMeta) {
         long t0 = System.currentTimeMillis();
         try {
             int timeout = beanMeta.getTimeout();
@@ -278,24 +271,6 @@ public class MySqlExecutor implements SqlExecutor {
             this.configuration.addMappedStatement(ms);
         }
 
-        private String select(String sql, Class<?> resultType) {
-            String msId = this.newMsId(resultType + sql, SqlCommandType.SELECT);
-            if (!this.hasMappedStatement(msId)) {
-                StaticSqlSource sqlSource = new StaticSqlSource(this.configuration, sql);
-                this.newSelectMappedStatement(msId, sqlSource, resultType);
-            }
-            return msId;
-        }
-
-        private String select(String sql) {
-            String msId = this.newMsId(sql, SqlCommandType.SELECT);
-            if (!this.hasMappedStatement(msId)) {
-                StaticSqlSource sqlSource = new StaticSqlSource(this.configuration, sql);
-                this.newSelectMappedStatement(msId, sqlSource, Map.class);
-            }
-            return msId;
-        }
-
         private String selectDynamic(String sql, Class<?> parameterType) {
             String msId = this.newMsId(sql + parameterType, SqlCommandType.SELECT);
             if (!this.hasMappedStatement(msId)) {
@@ -307,15 +282,6 @@ public class MySqlExecutor implements SqlExecutor {
                     throw new RuntimeException(e);
                 }
                 this.newSelectMappedStatement(msId, sqlSource, Map.class);
-            }
-            return msId;
-        }
-
-        private String selectDynamic(String sql, Class<?> parameterType, Class<?> resultType) {
-            String msId = this.newMsId(resultType + sql + parameterType, SqlCommandType.SELECT);
-            if (!this.hasMappedStatement(msId)) {
-                SqlSource sqlSource = this.languageDriver.createSqlSource(this.configuration, sql, parameterType);
-                this.newSelectMappedStatement(msId, sqlSource, resultType);
             }
             return msId;
         }
