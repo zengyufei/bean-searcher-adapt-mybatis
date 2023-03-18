@@ -1,6 +1,10 @@
 package com.example.sbean;
 
-import cn.zhxu.bs.bean.*;
+import cn.zhxu.bs.bean.BeanAware;
+import cn.zhxu.bs.bean.DbField;
+import cn.zhxu.bs.bean.DbIgnore;
+import cn.zhxu.bs.bean.ParamAware;
+import cn.zhxu.bs.bean.SearchBean;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;

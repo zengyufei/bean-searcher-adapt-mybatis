@@ -15,10 +15,38 @@
 
 ### 运行 DEMO
 
-```bash
-# 修改MySQL相关配置: application.properties
-# 运行 Application
+```xml
+1. 修改MySQL相关配置: application.properties
+2. 运行 Application
 ```
+
+### 如果是您自己的项目,食用方法
+
+加入依赖
+```xml
+<dependency>
+    <groupId>com.xunmo</groupId>
+    <artifactId>bean-searcher-adapt-mybatis-starter</artifactId>
+    <version>4.1.2</version>
+</dependency>
+```
+
+加入个人仓库
+```xml
+<repositories>
+    <!-- 曾玉飞 maven 个人仓库 -->
+    <repository>
+        <id>maven-repo-master</id>
+        <url>https://raw.github.com/zengyufei/maven-repo/master/</url>
+        <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+        </snapshots>
+    </repository>
+</repositories>
+```
+
+如果无法获取依赖, 刷新多几次, 因为正常访问 github 不太稳定
 
 以下全部内容来自 Bean Searcher 框架：
 
