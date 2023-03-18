@@ -9,7 +9,6 @@ public interface FieldOpParam {
 
     BeanSearcherProperties getConfig();
 
-
     void setFieldParam(FieldParam fieldParam);
 
     FieldParam getFieldParam();

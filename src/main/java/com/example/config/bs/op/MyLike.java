@@ -2,11 +2,16 @@ package com.example.config.bs.op;
 
 import cn.zhxu.bs.SqlWrapper;
 import cn.zhxu.bs.boot.BeanSearcherProperties;
+import cn.zhxu.bs.dialect.Dialect;
+import cn.zhxu.bs.dialect.MySqlDialect;
 import cn.zhxu.bs.operator.Contain;
 import cn.zhxu.bs.param.FieldParam;
 import cn.zhxu.bs.util.ObjectUtils;
 import com.example.config.bs.FieldOpParam;
+import com.example.config.bs.MyMySqlDialect;
+import com.example.config.bs.MyPostgreSqlDialect;
 
+import javax.naming.OperationNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,27 +24,37 @@ public class MyLike extends Contain implements FieldOpParam {
         SqlWrapper<Object> fieldSql = opPara.getFieldSql();
         Object[] values = opPara.getValues();
         final String name = getFieldParam().getName();
+        final Dialect dialect = this.getDialect();
         if (opPara.isIgnoreCase()) {
             if (hasILike()) {
                 sqlBuilder.append(fieldSql.getSql());
-                // mysql
-                sqlBuilder.append(" ilike").append(" CONCAT('%',#{").append(name).append("},'%')");
-                // pgsql
-                // sqlBuilder.append(" ilike '%' || #{").append(name).append("} || '%'");
+                if (dialect instanceof MyPostgreSqlDialect) {
+                    // pgsql
+                    sqlBuilder.append(" ilike '%' || #{").append(name).append("} || '%'");
+                } else {
+                    // mysql
+                    sqlBuilder.append(" ilike").append(" CONCAT('%',#{").append(name).append("},'%')");
+                }
             } else {
                 toUpperCase(sqlBuilder, fieldSql.getSql());
-                // mysql
-                sqlBuilder.append(" like").append(" CONCAT('%',#{").append(name).append("},'%')");
-                // pgsql
-                // sqlBuilder.append(" like '%' || #{").append(name).append("} || '%'");
+                if (dialect instanceof MyPostgreSqlDialect) {
+                    // pgsql
+                    sqlBuilder.append(" like '%' || #{").append(name).append("} || '%'");
+                } else {
+                    // mysql
+                    sqlBuilder.append(" like").append(" CONCAT('%',#{").append(name).append("},'%')");
+                }
                 ObjectUtils.upperCase(values);
             }
         } else {
             sqlBuilder.append(fieldSql.getSql());
-            // mysql
-            sqlBuilder.append(" like").append(" CONCAT('%',#{").append(name).append("},'%')");
-            // pgsql
-            // sqlBuilder.append(" like '%' || #{").append(name).append("} || '%'");
+            if (dialect instanceof MyPostgreSqlDialect) {
+                // pgsql
+                 sqlBuilder.append(" like '%' || #{").append(name).append("} || '%'");
+            } else {
+                // mysql
+                sqlBuilder.append(" like").append(" CONCAT('%',#{").append(name).append("},'%')");
+            }
         }
         List<Object> params = new ArrayList<>(fieldSql.getParas());
         params.add(firstNotNull(values));
