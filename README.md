@@ -2,7 +2,24 @@
 
 ### 介绍
 
-本项目主要用于演示 [Bean Searcher](https://gitee.com/troyzhxu/bean-searcher) 与 mybatis 合并，不变更 bs 源码的基础上，通过继承与覆盖bean的方式加以改造，将 bs 的功能融合到 mybatis，目的是让 bs 支持 mybatis 拦截器，常见的场景有权限控制拦截器，权限范围控制拦截器。
+本项目主要用于演示 [Bean Searcher](https://gitee.com/troyzhxu/bean-searcher) 与 mybatis 融合，既支持 bs 几乎所有功能, 又基于 mybatis 去查询.
+
+改动 1 处:
+
+1. 底层改成了 mybatis 执行
+
+解决 2 个问题:
+
+1. bs 不支持事务, 解决.
+2. bs 不支持 mybatis 拦截器, 解决.
+
+原理: 不变更 bs 源码的基础上，通过继承与覆盖bean的方式加以改造，将 bs 的底层改成了 mybatis 执行.
+
+目的: 最初是因为数据范围控制拦截器, 需要写两份, 一份是 mybatis, 另一份是 bs 的拦截器, 很是苦恼, 虽然通过设计只需要写一份, 但是存在的风险和代码债务很重, 并且存在不支持事务问题.
+
+不支持项:
+    已知:
+        1. 超时项的设置, 是失效的, 超时时间这个功能不兼容.
 
 ### 本项目测试方式
 
