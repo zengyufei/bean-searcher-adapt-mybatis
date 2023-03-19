@@ -13,6 +13,84 @@
 3. 查看日志，完成本项目目的。
 ```
 
+##### 样例日志
+
+实际请求
+
+```go
+请求链接:
+    POST http://localhost/test/project/list
+请求头：
+    Content-Type: application/x-www-form-urlencoded
+请求参数：
+    areaName_op:il
+    areaName:其他,市直
+    
+    beginDate_op:bt
+    beginDate:1997-01-01,2023-01-01
+```
+
+```bash
+2023-03-19 16:31:41.156   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]com.xunmo.project4sp.global.GlobalAspect-->  
+【1f8a9c1b5b04471f882abd8dce617d8e】【请求 URL】：POST http://localhost/test/project/list
+【1f8a9c1b5b04471f882abd8dce617d8e】【请求方法】：com.xunmo.biz.project.controller.ProjectController.list()
+【1f8a9c1b5b04471f882abd8dce617d8e】【请求参数】：{"areaName":["其他,市直"],"areaName_op":["il"],"beginDate":["1997-01-01,2023-01-01"],"beginDate_op":["bt"]}
+【1f8a9c1b5b04471f882abd8dce617d8e】【body】：[{}]
+2023-03-19 16:31:41.157   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]com.xunmo.bs.config.bs.MySqlExecutor-->  select count(*) s_count from "T_XM" where ("AREA" in (#{areaName_0}, #{areaName_1})) and ("KGRQ" between #{beginDate_0} and #{beginDate_1})
+2023-03-19 16:31:41.195   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]p6spy-->   Execute statement SQL：select 1
+2023-03-19 16:31:41.199   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]com.xunmo.current.dataScope.ProjectDataScope-->  进入项目判断权限范围
+2023-03-19 16:31:41.223   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]p6spy-->   Execute statement SQL：SELECT count(*) s_count FROM "T_XM" WHERE ("AREA" IN ('其他', '市直')) AND ("KGRQ" BETWEEN '1997-01-01T00:00:00.000+0800' AND '2023-01-01T00:00:00.000+0800')
+2023-03-19 16:31:41.298   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]com.xunmo.current.dataScope.ProjectDataScope-->  进入项目判断权限范围
+2023-03-19 16:31:41.431   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]p6spy-->   Execute statement SQL：SELECT "XMID" c_0, "XMMC" c_1, "JDH" c_2, "JSDWID" c_3, "JSDW" c_4, "XMDZ" c_5, "GCLX" c_6, "GCSX" c_7, "AREA" c_8, "GCZLDJ" c_9, "GLDJ" c_10, "GLLB" c_11, "LCS" c_12, "JAF" c_13, "KGRQ" c_14, "WGRQ" c_15, "GCSX1" c_16, "XMJK" c_17, "XMGK" c_18, "JDFZR" c_19, "JDR" c_20, "FGLD" c_21, "XMZT" c_22, "ADDTIME" c_23, "ADDUSER" c_24, (SELECT "REALNAME" FROM "T_UNIT_USER" WHERE "USERID" = "ADDUSER") c_25, "JDFZRXM" c_26, "XMZT1" c_27, "XMZT2" c_28, "BWDJ" c_29, "SJTTL" c_30, "BWS" c_31, "MTCD" c_32, "MTKD" c_33, "YQCD" c_34, "YQKD" c_35, "DCMJ" c_36, "JZWS" c_37, "JZMJ" c_38, "DLDJ" c_39, "XTLX" c_40, "YLDJ" c_41, "CZSL" c_42, "BFB" c_43, "GLLJKD" c_44, "GLQLCD" c_45, "GLQLKD" c_46, "GLSJSD" c_47, "GLQLSJHZ" c_48, "GCGS" c_49, "GQ" c_50, "RYBDSM" c_51, "GLDQSL" c_52, "GLDQYM" c_53, "GLZXQSL" c_54, "GLZXQYM" c_55, "GLHTLJSL" c_56, "GLHTLJYM" c_57, "SDXCLJSL" c_58, "SDXCLJCD" c_59, "GLXSQSL" c_60, "GLXSQYM" c_61, "GLXLQSL" c_62, "GLXLQYM" c_63, "GLGQSL" c_64, "GLGQYM" c_65, "LXGGQSL" c_66, "LXGGQYM" c_67, "DMCZSL" c_68, "DXCZSL" c_69, "GJCZSL" c_70, "ABBREVIATION" c_71, "JDGLDW" c_72, "XGSJ" c_73, "DRSJ" c_74, "SFDR" c_75, (SELECT string_agg("REALNAME", ',') FROM "T_UNIT_USER" WHERE "USERID" IN (SELECT unnest(string_to_array("T_XM"."JDR", ',')))) c_76, (SELECT "REALNAME" FROM "T_UNIT_USER" WHERE "USERID" = "T_XM"."FGLD") c_77, (SELECT "ZT1" FROM "T_XM_ZT" WHERE "XMID" = "T_XM"."XMID" AND ("BDID" = '' OR "BDID" IS NULL) ORDER BY "KSSJ" DESC LIMIT 1) c_78, (SELECT "BFB" FROM "T_XM_ZT" WHERE "XMID" = "T_XM"."XMID" AND ("BDID" = '' OR "BDID" IS NULL) ORDER BY "KSSJ" DESC LIMIT 1) c_79 FROM "T_XM" WHERE ("AREA" IN ('其他', '市直')) AND ("KGRQ" BETWEEN '1997-01-01T00:00:00.000+0800' AND '2023-01-01T00:00:00.000+0800') ORDER BY "XMID" LIMIT 15 OFFSET 0
+2023-03-19 16:31:41.446   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]com.xunmo.project4sp.global.GlobalAspect-->  
+【1f8a9c1b5b04471f882abd8dce617d8e】【请求耗时】：290毫秒
+【1f8a9c1b5b04471f882abd8dce617d8e】【已分配内存】：453m 【已分配内存中的剩余空间】：286m 【浏览器类型】：UNKNOWN 【操作系统】：UNKNOWN
+【1f8a9c1b5b04471f882abd8dce617d8e】【原始User-Agent】：apifox/1.0.0 (https://www.apifox.cn)
+2023-03-19 16:31:41.446   INFO  [1f8a9c1b5b04471f882abd8dce617d8e]com.xunmo.utils.LogUtil-->  ----------------------------------------------------------------
+```
+
+```go
+请求链接:
+    POST http://localhost/test/project/list
+请求头：
+    Content-Type: application/x-www-form-urlencoded
+请求参数：
+    areaName_op:il
+    areaName:其他,市直
+    
+    beginDate_op:bt
+    beginDate:1997-01-01,2023-01-01
+    
+    buildingArea_op:gt
+    buildingArea:1
+    
+    pageNo:1
+    pageSize:20
+    
+    orderBy:id:desc
+```
+
+```bash
+2023-03-19 16:41:26.532   INFO  [3fc2d50c389a419c9c84e0cffd582550]com.xunmo.project4sp.global.GlobalAspect-->  
+【3fc2d50c389a419c9c84e0cffd582550】【请求 URL】：POST http://localhost/test/project/list
+【3fc2d50c389a419c9c84e0cffd582550】【请求方法】：com.xunmo.biz.project.controller.ProjectController.list()
+【3fc2d50c389a419c9c84e0cffd582550】【请求参数】：{"areaName_op":["il"],"buildingArea_op":["gt"],"pageSize":["20"],"orderBy":["id:desc"],"buildingArea":["1"],"beginDate":["1997-01-01,2023-01-01"],"beginDate_op":["bt"],"areaName":["其他,市直"],"pageNo":["1"]}
+【3fc2d50c389a419c9c84e0cffd582550】【body】：[{}]
+2023-03-19 16:41:26.533   INFO  [3fc2d50c389a419c9c84e0cffd582550]com.xunmo.bs.config.bs.MySqlExecutor-->  select count(*) s_count from "T_XM" where ("JZMJ" > #{buildingArea}) and ("AREA" in (#{areaName_0}, #{areaName_1})) and ("KGRQ" between #{beginDate_0} and #{beginDate_1})
+2023-03-19 16:41:26.560   INFO  [3fc2d50c389a419c9c84e0cffd582550]p6spy-->   Execute statement SQL：select 1
+2023-03-19 16:41:26.564   INFO  [3fc2d50c389a419c9c84e0cffd582550]com.xunmo.current.dataScope.ProjectDataScope-->  进入项目判断权限范围
+2023-03-19 16:41:26.625   INFO  [3fc2d50c389a419c9c84e0cffd582550]p6spy-->   Execute statement SQL：SELECT count(*) s_count FROM "T_XM" WHERE ("JZMJ" > 1.0) AND ("AREA" IN ('其他', '市直')) AND ("KGRQ" BETWEEN '1997-01-01T00:00:00.000+0800' AND '2023-01-01T00:00:00.000+0800')
+2023-03-19 16:41:26.676   INFO  [3fc2d50c389a419c9c84e0cffd582550]com.xunmo.current.dataScope.ProjectDataScope-->  进入项目判断权限范围
+2023-03-19 16:41:26.727   INFO  [3fc2d50c389a419c9c84e0cffd582550]p6spy-->   Execute statement SQL：SELECT "XMID" c_0, "XMMC" c_1, "JDH" c_2, "JSDWID" c_3, "JSDW" c_4, "XMDZ" c_5, "GCLX" c_6, "GCSX" c_7, "AREA" c_8, "GCZLDJ" c_9, "GLDJ" c_10, "GLLB" c_11, "LCS" c_12, "JAF" c_13, "KGRQ" c_14, "WGRQ" c_15, "GCSX1" c_16, "XMJK" c_17, "XMGK" c_18, "JDFZR" c_19, "JDR" c_20, "FGLD" c_21, "XMZT" c_22, "ADDTIME" c_23, "ADDUSER" c_24, (SELECT "REALNAME" FROM "T_UNIT_USER" WHERE "USERID" = "ADDUSER") c_25, "JDFZRXM" c_26, "XMZT1" c_27, "XMZT2" c_28, "BWDJ" c_29, "SJTTL" c_30, "BWS" c_31, "MTCD" c_32, "MTKD" c_33, "YQCD" c_34, "YQKD" c_35, "DCMJ" c_36, "JZWS" c_37, "JZMJ" c_38, "DLDJ" c_39, "XTLX" c_40, "YLDJ" c_41, "CZSL" c_42, "BFB" c_43, "GLLJKD" c_44, "GLQLCD" c_45, "GLQLKD" c_46, "GLSJSD" c_47, "GLQLSJHZ" c_48, "GCGS" c_49, "GQ" c_50, "RYBDSM" c_51, "GLDQSL" c_52, "GLDQYM" c_53, "GLZXQSL" c_54, "GLZXQYM" c_55, "GLHTLJSL" c_56, "GLHTLJYM" c_57, "SDXCLJSL" c_58, "SDXCLJCD" c_59, "GLXSQSL" c_60, "GLXSQYM" c_61, "GLXLQSL" c_62, "GLXLQYM" c_63, "GLGQSL" c_64, "GLGQYM" c_65, "LXGGQSL" c_66, "LXGGQYM" c_67, "DMCZSL" c_68, "DXCZSL" c_69, "GJCZSL" c_70, "ABBREVIATION" c_71, "JDGLDW" c_72, "XGSJ" c_73, "DRSJ" c_74, "SFDR" c_75, (SELECT string_agg("REALNAME", ',') FROM "T_UNIT_USER" WHERE "USERID" IN (SELECT unnest(string_to_array("T_XM"."JDR", ',')))) c_76, (SELECT "REALNAME" FROM "T_UNIT_USER" WHERE "USERID" = "T_XM"."FGLD") c_77, (SELECT "ZT1" FROM "T_XM_ZT" WHERE "XMID" = "T_XM"."XMID" AND ("BDID" = '' OR "BDID" IS NULL) ORDER BY "KSSJ" DESC LIMIT 1) c_78, (SELECT "BFB" FROM "T_XM_ZT" WHERE "XMID" = "T_XM"."XMID" AND ("BDID" = '' OR "BDID" IS NULL) ORDER BY "KSSJ" DESC LIMIT 1) c_79 FROM "T_XM" WHERE ("JZMJ" > 1.0) AND ("AREA" IN ('其他', '市直')) AND ("KGRQ" BETWEEN '1997-01-01T00:00:00.000+0800' AND '2023-01-01T00:00:00.000+0800') ORDER BY c_0 DESC LIMIT 20 OFFSET 0
+2023-03-19 16:41:26.729   INFO  [3fc2d50c389a419c9c84e0cffd582550]com.xunmo.project4sp.global.GlobalAspect-->  
+【3fc2d50c389a419c9c84e0cffd582550】【请求耗时】：197毫秒
+【3fc2d50c389a419c9c84e0cffd582550】【已分配内存】：423m 【已分配内存中的剩余空间】：269m 【浏览器类型】：UNKNOWN 【操作系统】：UNKNOWN
+【3fc2d50c389a419c9c84e0cffd582550】【原始User-Agent】：apifox/1.0.0 (https://www.apifox.cn)
+2023-03-19 16:41:26.729   INFO  [3fc2d50c389a419c9c84e0cffd582550]com.xunmo.utils.LogUtil-->  ----------------------------------------------------------------
+```
+
+
+
 ### 运行 DEMO
 
 ```xml
@@ -48,7 +126,12 @@
 
 如果无法获取依赖, 刷新多几次, 因为正常访问 github 不太稳定
 
-以下全部内容来自 Bean Searcher 框架：
+### 支持数据库
+
+#### 目前仅支持 `Mysql` 和 `PostgreSql` 两种, 其他方案, 可以参考这两个自己写, 源码包已提供, 通过maven拉取即可.
+
+
+### 以下全部内容来自 Bean Searcher 框架：
 
 
 ### 运行效果
