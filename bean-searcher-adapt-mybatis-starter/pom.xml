@@ -1,0 +1,141 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <name>Bean Searcher Adapt Mybatis</name>
+
+    <groupId>com.xunmo</groupId>
+    <artifactId>bean-searcher-adapt-mybatis-starter</artifactId>
+    <version>4.1.2</version>
+
+    <packaging>jar</packaging>
+
+
+    <properties>
+        <github.global.server>github</github.global.server>
+        <junit.version>4.13.2</junit.version>
+        <slf4j.version>2.0.6</slf4j.version>
+        <xjsonkit.version>1.4.2</xjsonkit.version>
+        <spring.boot.version>2.7.8</spring.boot.version>
+        <solon.version>2.2.1</solon.version>
+        <bean-searcher.version>4.1.2</bean-searcher.version>
+
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>bean-searcher</artifactId>
+            <version>${bean-searcher.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>bean-searcher-boot-starter</artifactId>
+            <version>${bean-searcher.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.zhxu</groupId>
+            <artifactId>xjsonkit-jackson</artifactId>
+            <version>1.4.2</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.11</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>3.5.3.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <!--Lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>compile</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>bean-searcher-adapt-mybatis-starter</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <!-- altDeploymentRepository ：指定替代方案应该部署项目工件的存储库（除了指定的工件）。 -->
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>0.12</version>
+                <configuration>
+                    <!-- Plugin configuration goes here -->
+                    <server>github</server>
+                    <message>Maven artifacts for ${project.version}</message>
+                    <!--                    <noJekyll>true</noJekyll>-->
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory><!-- 本地 jar 地址 -->
+                    <branch>refs/heads/master</branch><!-- 分支 -->
+                    <merge>true</merge>
+                    <force>true</force>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>maven-repo</repositoryName><!-- 对应 github 上创建的仓库名称 name-->
+                    <repositoryOwner>zengyufei</repositoryOwner><!--github 仓库所有者 -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
