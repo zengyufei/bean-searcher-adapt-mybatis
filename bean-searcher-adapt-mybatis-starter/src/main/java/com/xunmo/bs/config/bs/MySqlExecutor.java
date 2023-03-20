@@ -307,6 +307,9 @@ public class MySqlExecutor implements SqlExecutor {
         T map;
 
         public boolean hasNext() {
+            if (iterator == null) {
+                return false;
+            }
             final boolean hasNext = iterator.hasNext();
             if (hasNext) {
                 map = iterator.next();
