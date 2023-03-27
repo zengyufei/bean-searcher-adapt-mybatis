@@ -6,6 +6,7 @@ import cn.zhxu.bs.operator.IsNull;
 import cn.zhxu.bs.operator.NotEmpty;
 import cn.zhxu.bs.operator.NotNull;
 import com.xunmo.bs.config.bs.op.MyBetween;
+import com.xunmo.bs.config.bs.op.MyContain;
 import com.xunmo.bs.config.bs.op.MyEndWith;
 import com.xunmo.bs.config.bs.op.MyEqual;
 import com.xunmo.bs.config.bs.op.MyGreaterEqual;
@@ -31,7 +32,7 @@ public class Ops {
     public static final Class<NotNull> NotNull = NotNull.class;
     public static final Class<Empty> Empty = Empty.class;
     public static final Class<NotEmpty> NotEmpty = NotEmpty.class;
-    public static final Class<Contain> Contain = Contain.class;
+    public static final Class<MyContain> Contain = MyContain.class;
     public static final Class<MyStartWith> StartWith = MyStartWith.class;
     public static final Class<MyEndWith> EndWith = MyEndWith.class;
     public static final Class<MyOrLike> OrLike = MyOrLike.class;

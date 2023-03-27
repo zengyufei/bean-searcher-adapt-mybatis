@@ -17,7 +17,19 @@
 
 目的: 最初是因为数据范围控制拦截器, 需要写两份, 一份是 mybatis, 另一份是 bs 的拦截器, 很是苦恼, 虽然通过设计只需要写一份, 但是存在的风险和代码债务很重, 并且存在不支持事务问题.
 
-不支持项:
+#### 使用习惯变更项
+
+    原:    
+        .field(Employee::getName, "j").op(Contain.class)
+    改:    
+        .field(Employee::getName, "j").op(MyContain.class)    
+        或    
+        .field(Employee::getName, "j").op(Ops.Contain)    
+
+( Ops.Contain 已经被定义为指向 MyContain.class, 更多请查看 com.xunmo.bs.config.bs.Ops )
+
+
+#### 不支持项:
 
     已知:
 

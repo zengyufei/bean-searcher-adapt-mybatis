@@ -15,7 +15,7 @@ import java.util.List;
 
 import static cn.zhxu.bs.util.ObjectUtils.firstNotNull;
 
-public class MyLike extends Contain implements FieldOpParam {
+public class MyContain extends Contain implements FieldOpParam {
 
     @Override
     public List<Object> operate(StringBuilder sqlBuilder, OpPara opPara) {
