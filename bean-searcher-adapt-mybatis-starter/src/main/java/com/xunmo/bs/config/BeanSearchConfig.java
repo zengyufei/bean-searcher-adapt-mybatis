@@ -20,6 +20,7 @@ import com.xunmo.bs.config.bs.MyParamResolver;
 import com.xunmo.bs.config.bs.MySqlExecutor;
 import com.xunmo.bs.config.bs.MySqlResolver;
 import com.xunmo.bs.config.bs.op.MyBetween;
+import com.xunmo.bs.config.bs.op.MyContain;
 import com.xunmo.bs.config.bs.op.MyEndWith;
 import com.xunmo.bs.config.bs.op.MyEqual;
 import com.xunmo.bs.config.bs.op.MyGreaterEqual;
@@ -27,7 +28,6 @@ import com.xunmo.bs.config.bs.op.MyGreaterThan;
 import com.xunmo.bs.config.bs.op.MyInList;
 import com.xunmo.bs.config.bs.op.MyLessEqual;
 import com.xunmo.bs.config.bs.op.MyLessThan;
-import com.xunmo.bs.config.bs.op.MyLike;
 import com.xunmo.bs.config.bs.op.MyNotBetween;
 import com.xunmo.bs.config.bs.op.MyNotEqual;
 import com.xunmo.bs.config.bs.op.MyNotIn;
@@ -66,7 +66,7 @@ public class BeanSearchConfig {
         List<FieldOp> ops = new ArrayList<>();
         // 添加自己喜欢的字段运算符全部 add 进去即可
         // 这里没添加的运算符将不可用
-        ops.add(new MyLike());
+        ops.add(new MyContain());
         ops.add(new MyNotLike());
         ops.add(new MyOrLike());
 
